@@ -16,7 +16,10 @@ function TransactionList({ transactions, onDelete }) {
             // below line - React requires a unique key prop when rendering lists, to efficiently
             // track which items changed, added, or removed. used MongoDB's _id since its guaranteed unique.
             <li key={t._id}>
-              <strong>{t.type === 'income' ? '+' : '-'}${t.amount.toFixed(2)}</strong>
+                {/* next 3 lines below - colors income green and expenses red. */}
+              <strong style={{ color: t.type === 'income' ? '#27ae60' : '#e74c3c' }}>
+                {t.type === 'income' ? '+' : '-'}${t.amount.toFixed(2)}
+              </strong>
               {' — '}
               {t.category}
               {t.description && ` (${t.description})`}
