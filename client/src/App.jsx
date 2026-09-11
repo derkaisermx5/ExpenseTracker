@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import TransactionForm from './components/TransactionForm';
 import TransactionList from './components/TransactionList';
 import SummaryCards from './components/SummaryCards';
+import CategoryChart from './components/CategoryChart';
 
 function App() {
   const [transactions, setTransactions] = useState([]);
@@ -66,6 +67,10 @@ function App() {
     <div className="App">
       <h1>Expense Tracker</h1>
       <SummaryCards summary={summary} />
+      {/* '?.' - is known as optional chaining. Summary starts as null before data loads, trying to access
+      summary.categoryTotals directly would throw an error. '?.' says "if summary is null, return undefined
+      instead of crashing" which CategoryChart handles. */}
+      <CategoryChart categoryTotals={summary?.categoryTotals} />
       <TransactionForm onTransactionAdded={handleTransactionAdded} />
       {loading ? <p>Loading...</p> : (
         // above line - while initial fetch happens, it swaps to actual list once data arrives.
