@@ -1,10 +1,21 @@
 import { useState, useEffect } from 'react';
 import TransactionForm from './components/TransactionForm';
 import TransactionList from './components/TransactionList';
+import SummaryCards from './components/SummaryCards';
 
 function App() {
   const [transactions, setTransactions] = useState([]);
+  const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // fetchSummary as its own function - this keeps cards in sync always, since it's called
+  // whenever data might have changed: on initial load, after adding/deleting transaction
+  const fetchSummary = () => {
+    fetch('http://localhost:5000/api/transactions/summary')
+    .then((res) => res.json())
+    .then((data) => setSummary(data))
+    .catch((err) => console.error('Failed to fetch summary:', err));
+  };
 
   // Fetch all transactions(from API) when the app first loads
   useEffect(() => {
@@ -19,6 +30,8 @@ function App() {
         console.error('Failed to fetch transactions:', err);
         setLoading(false);
       });
+
+    fetchSummary();
   }, []);
   // above line - [] mean only run this once, nt every time something re-renders.
 
@@ -26,6 +39,10 @@ function App() {
   // w/o  need to re-fetch everything from the server. Fast & Effiecient.
   const handleTransactionAdded = (newTransaction) => {
     setTransactions([newTransaction, ...transactions]);
+
+    // every time the transaction list changes, we also refresh the summary numbers, so we prevent
+    // "Total Expenses" card from still displaying the old number until manually refreshing the page.
+    fetchSummary();
   };
 
   // function below - calls 'DELETE' API route, then removes transaction from local state
@@ -38,6 +55,7 @@ function App() {
       if (!response.ok) throw new Error('Failed to delete');
 
       setTransactions(transactions.filter((t) => t._id !== id));
+      fetchSummary();
     } catch (err) {
       console.error(err);
       alert('Something went wrong deleting the transaction.');
@@ -47,6 +65,7 @@ function App() {
   return (
     <div className="App">
       <h1>Expense Tracker</h1>
+      <SummaryCards summary={summary} />
       <TransactionForm onTransactionAdded={handleTransactionAdded} />
       {loading ? <p>Loading...</p> : (
         // above line - while initial fetch happens, it swaps to actual list once data arrives.

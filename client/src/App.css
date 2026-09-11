@@ -89,3 +89,32 @@ li button {
 li button:hover {
   background: #c0392b;
 }
+
+.summary-cards {
+  display: grid;
+  /* line below - reates 4 equal-width columns side by side */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card-label {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 8px 0;
+}
+
+.card-value {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
