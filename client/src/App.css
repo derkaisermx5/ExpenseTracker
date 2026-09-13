@@ -195,3 +195,27 @@ li button:hover {
   color: #888;
   padding: 20px;
 }
+/* The following is a media query */
+@media (max-width: 600px) {
+  .summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  li {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  li button {
+    margin-left: 0;
+  }
+
+  form label {
+    width: 100%;
+  }
+}
