@@ -296,3 +296,45 @@ li button:hover {
 .export-section button:hover {
   background: #16a085;
 }
+/* side bar as an icon */
+.hamburger-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+  background: #2c3e50;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.hamburger-toggle img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .hamburger-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+
+  .sidebar.sidebar-open {
+    left: 0;
+  }
+
+  .App {
+    padding-top: 60px;
+  }
+}

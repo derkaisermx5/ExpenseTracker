@@ -14,6 +14,7 @@ function App() {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // fetchSummary as its own function - this keeps cards in sync always, since it's called
   // whenever data might have changed: on initial load, after adding/deleting transaction
@@ -84,7 +85,12 @@ function App() {
 
   return (
     <div className="app-layout">
-      <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
+      <Sidebar 
+      currentView={currentView} 
+      setCurrentView={setCurrentView}
+      isSidebarOpen={isSidebarOpen}
+      setIsSidebarOpen={setIsSidebarOpen}
+      />
 
       <div className="App">
         <h1>Expense Tracker</h1>
