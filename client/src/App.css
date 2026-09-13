@@ -1,8 +1,7 @@
 .App {
   /* this section centers the entire app on the page and prevents it from
       stretching edge-to-edge; in case its used on a computer. */
-  max-width: 700px;
-  margin: 0 auto;
+  flex: 1;
   padding: 20px;
   font-family: Arial, sans-serif;
 }
@@ -218,4 +217,58 @@ li button:hover {
   form label {
     width: 100%;
   }
+}
+
+/* side bar option */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 8px;
+  padding: 0;
+  border: none;
+  display: block;
+}
+
+.sidebar button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #ccc;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.sidebar button:hover {
+  background: #34495e;
+  color: white;
+}
+
+.sidebar button.active {
+  background: #1abc9c;
+  color: white;
+  font-weight: bold;
 }

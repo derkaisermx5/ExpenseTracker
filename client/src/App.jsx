@@ -1,4 +1,5 @@
 import './App.css';
+import Sidebar from './components/Sidebar';
 import { useState, useEffect } from 'react';
 import TransactionForm from './components/TransactionForm';
 import TransactionList from './components/TransactionList';
@@ -8,6 +9,7 @@ import MonthlyChart from './components/MonthlyChart';
 
 function App() {
   const [transactions, setTransactions] = useState([]);
+  const [currentView, setCurrentView] = useState('dashboard');
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -80,31 +82,48 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Expense Tracker</h1>
+    <div className="app-layout">
+      <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
 
-      {error ? (
-        <div className="error-banner">
-          <p>{error}</p>
-          <button onClick={fetchAll}>Try Again</button>
-        </div>
-      ) : (
-        <>
-          <SummaryCards summary={summary} />
+      <div className="App">
+        <h1>Expense Tracker</h1>
 
-          {/* '?.' - is known as optional chaining. Summary starts as null before data loads, trying to access
-          summary.categoryTotals directly would throw an error. '?.' says "if summary is null, return undefined
-          instead of crashing" which CategoryChart handles. */}
-          <CategoryChart categoryTotals={summary?.categoryTotals} />
-          <MonthlyChart monthlyBreakdown={summary?.monthlyBreakdown} />
-          <TransactionForm onTransactionAdded={handleTransactionAdded} />
-          {loading ? (
-            <p className="loading-text">Loading transactions...</p> 
-          ) : (
-            <TransactionList transactions={transactions} onDelete={handleDelete} />
-          )}
-        </>
-      )}
+        {error ? (
+          <div className="error-banner">
+            <p>{error}</p>
+            <button onClick={fetchAll}>Try Again</button>
+          </div>
+        ) : (
+          <>
+            {currentView === 'dashboard' && (
+              <>
+                <SummaryCards summary={summary} />
+
+                {/* '?.' - is known as optional chaining. Summary starts as null before data loads, trying to access
+                  summary.categoryTotals directly would throw an error. '?.' says "if summary is null, return undefined
+                  instead of crashing" which CategoryChart handles. */}
+                <CategoryChart categoryTotals={summary?.categoryTotals} />
+                <MonthlyChart monthlyBreakdown={summary?.monthlyBreakdown} />
+              </>
+            )}
+            
+            {currentView === 'transactions' && (
+              <>
+                <TransactionForm onTransactionAdded={handleTransactionAdded} />
+                {loading ? (
+                  <p className="loading-text">Loading transactions...</p> 
+                ) : (
+                  <TransactionList transactions={transactions} onDelete={handleDelete} />
+                )}
+              </>
+            )}
+
+            {currentView === 'export' && (
+              <p>Export feature coming next.</p>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
