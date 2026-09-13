@@ -1,5 +1,6 @@
 import './App.css';
 import Sidebar from './components/Sidebar';
+import ExportData from './components/ExportData';
 import { useState, useEffect } from 'react';
 import TransactionForm from './components/TransactionForm';
 import TransactionList from './components/TransactionList';
@@ -119,7 +120,7 @@ function App() {
             )}
 
             {currentView === 'export' && (
-              <p>Export feature coming next.</p>
+              <ExportData transactions={transactions} />
             )}
           </>
         )}
