@@ -12,7 +12,7 @@ function SummaryCards({ summary }) {
       { label: 'Total Expenses', value: summary.totalExpenses, color: '#e74c3c' },
       { label: 'Savings Rate', value: `${summary.savingsRate}%`, isPercent: true, color: '#8e44ad' }
     ];
-  
+
     return (
       <div className="summary-cards">
         {cards.map((card) => (

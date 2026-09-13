@@ -166,3 +166,32 @@ li button:hover {
 .filters button:hover {
   background: #6b7677;
 }
+
+.error-banner {
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 16px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.error-banner button {
+  margin-top: 10px;
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-banner button:hover {
+  background: #a5281c;
+}
+
+.loading-text {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+}
