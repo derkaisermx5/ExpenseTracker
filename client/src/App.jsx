@@ -3,6 +3,7 @@ import TransactionForm from './components/TransactionForm';
 import TransactionList from './components/TransactionList';
 import SummaryCards from './components/SummaryCards';
 import CategoryChart from './components/CategoryChart';
+import MonthlyChart from './components/MonthlyChart';
 
 function App() {
   const [transactions, setTransactions] = useState([]);
@@ -71,6 +72,8 @@ function App() {
       summary.categoryTotals directly would throw an error. '?.' says "if summary is null, return undefined
       instead of crashing" which CategoryChart handles. */}
       <CategoryChart categoryTotals={summary?.categoryTotals} />
+      <CategoryChart categoryTotals={summary?.categoryTotals} />
+      <MonthlyChart monthlyBreakdown={summary?.monthlyBreakdown} />
       <TransactionForm onTransactionAdded={handleTransactionAdded} />
       {loading ? <p>Loading...</p> : (
         // above line - while initial fetch happens, it swaps to actual list once data arrives.
