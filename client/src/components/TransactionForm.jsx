@@ -19,7 +19,7 @@ function TransactionForm({ onTransactionAdded }) {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/transactions', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/transactions`, {
         // above line - this is the actual network call to my Express backend.
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

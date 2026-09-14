@@ -18,8 +18,9 @@ function App() {
 
   // fetchSummary as its own function - this keeps cards in sync always, since it's called
   // whenever data might have changed: on initial load, after adding/deleting transaction
+  console.log('API_URL is:', import.meta.env.VITE_API_URL);
   const fetchSummary = () => {
-    fetch('http://localhost:5000/api/transactions/summary')
+    fetch(`${import.meta.env.VITE_API_URL}/api/transactions/summary`)
     .then((res) => res.json())
     .then((data) => setSummary(data))
     .catch((err) => console.error('Failed to fetch summary:', err));
@@ -29,7 +30,7 @@ function App() {
     setLoading(true);
     setError(null);
 
-    fetch('http://localhost:5000/api/transactions')
+    fetch(`${import.meta.env.VITE_API_URL}/api/transactions`)
       .then((res) => {
         if (!res.ok) throw new Error('Server responded with an error');
         return res.json();
@@ -70,7 +71,7 @@ function App() {
   // using .filter(). which keeps all except the one matching the deleted id.
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/transactions/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/transactions/${id}`, {
         method: 'DELETE'
       });
       if (!response.ok) throw new Error('Failed to delete');
